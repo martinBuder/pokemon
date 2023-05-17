@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="img/pokeball.png" type="image/x-icon">
+	<link rel="stylesheet" href="style.css">
+	<!-- *javascript -->
+	<script src="script.js"></script>
+
+	<title>mbPokedex</title>
+</head>
+<body onload="loadAllPokemons()">
+	<header><img src="img/pokeball.png" alt="" class="logo"><input type="text" id="search" placeholder="search a pokemon"></header>
+	<div id="cardContent"></div>
+	<h1>Pokedex</h1>
+	<div class="pokeWrapper" id="content">
+	</div>
+	<div id="nextButtonContainer">
+		<button onclick="loadLastPokemonInfos()" id="lastButton">show before</button>
+		<button onclick="loadNextPokemonInfos()" id="nextButton">show next</button>
+	</div>
+</body>
+</html>
