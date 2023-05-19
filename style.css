@@ -162,10 +162,10 @@ button:hover {
 	justify-content: center;
 	align-items: center;
 	z-index: 10;
-	width: 100%;
+	width: 94%;
 	height: 80vh;
-	background-color: rgba(255,255,255,0.4);
-	perspective: 380px;
+	background-color: rgba(135, 134, 134, 0.4);
+	perspective: 285px;
 	gap: 30px;
 	border-radius: 10px;
 	backdrop-filter: blur(5px);
@@ -174,14 +174,14 @@ button:hover {
 .cardContainer {
 	height: 90%;
 	aspect-ratio: 3/5;
-	border-radius: 25px;
+	border-radius: 10px;
 	box-shadow: 0px 0px 32px 8px rgba(0,0,0,0.6);
+
 	border-left: 0.7px solid #fff;
 	border-bottom: 0.8px solid #fff;
-	transform: rotateX(1deg) rotateY(0.5deg);
+	transform: rotateX(0.5deg) rotateY(0.5deg);
  transform-style: preserve-3d;
 	overflow: hidden;
-	background-color: #e8e7e7;
 	display: flex;
 	flex-direction: column;
 }
@@ -208,7 +208,7 @@ button:hover {
 	background-repeat: no-repeat;
 	background-position: center;
 	border-radius: 15px;
-	margin-top: -5vh;
+	margin-top: -50px;
 	background-color: #e8e7e7;
 	min-height: 60vh;
 	opacity: 0.85;
@@ -226,5 +226,13 @@ button:hover {
 	margin-bottom: 20px;
 }
 
+.headerCardContentContainer {
+	display: flex;
+	justify-content: space-around;
+	color: #414141;
+	padding: 20px 0;
+	background-color: #efefef;
+
+}
 
 

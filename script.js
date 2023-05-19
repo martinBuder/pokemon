@@ -103,33 +103,35 @@ function fillPokeTypeContent(i) {
 		pokeTypeContent.innerHTML += /*html*/ `
 		<p class="pokeType">
 		${currentPokemon['types'][j]['type']['name']}</p>`
-		// findBackgroundColor(i, j)
 	}
 }
 
 
 function	openPokeCard(i) {
+	i = checkNumber(i);
+	loadCardPokemonInformation(i);
+	cardContent = document.getElementById('cardContent');
+}
+
+function checkNumber(i) {
 	if(i < 0){
 		i = 1009
 	}
 	if(i > 1009){
 		i = 0
 	}
-	loadCardPokemonInformation(i);
-	cardContent = document.getElementById('cardContent');
 
+	return i
 }
 
 async function loadCardPokemonInformation(i) {
 		let url = `https:pokeapi.co/api/v2/pokemon/${i + 1}`
 		let response = await fetch(url);
 		currentCardPokemon = await response.json();
-
 		cardContent.innerHTML = cardHtml(i);
-		
-	cardWrapper = document.getElementById('cardWrapper');
-
-	cardWrapper.classList.remove('displayNone');
+		cardWrapper = document.getElementById('cardWrapper');
+ 	cardWrapper.classList.remove('displayNone');
+		renderPokeCardContent();
 }
 
 function cardHtml(i) {
@@ -142,13 +144,43 @@ function cardHtml(i) {
 				<img class="cardImg" id="pokeImg" src=${currentCardPokemon['sprites']['other']['official-artwork']['front_default']} alt="">
 			</div>
 			<div class="cardBody">
-				<div id="pokeTypeContent${i}"></div>
+				<div id="pokeCardContent"></div>
 			</div>
 		</div>
 		<button onclick="openPokeCard(${i + 1})">></button> 
 	</div>
 `
 }
+
+function renderPokeCardContent() {
+	let pokeCardContent = document.getElementById('pokeCardContent');
+	pokeCardContent.innerHTML = pokeCardContentHeaderHtml();
+}
+
+function pokeCardContentHeaderHtml() {
+	return /*html*/ `
+		<div class="headerCardContentContainer">
+			<h3 onclick="renderCardContentAbout()">About</h3>
+			<h3 onclick="renderCardContentBase()">Base Stats</h3>
+			<h3 onclick="renderCardContentEvolution()">Evolution </h3>
+			<h3 onclick="renderCardContentMoves()">Moves</h3>
+		</div>
+	`;
+}
+
+function renderCardContentAbout() {
+ alert('test')
+}
+function renderCardContentBase() {
+	alert('test')
+}
+function renderCardContentEvolution() {
+	alert('test')
+}
+function renderCardContentMoves() {
+	alert('test')
+}
+
 
 function closeCardWrapper() {
 	cardWrapper.classList.add('displayNone');
