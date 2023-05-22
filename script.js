@@ -8,6 +8,13 @@ let finishNumber = 32;
 let content;
 let cardContent;
 let cardWrapper;
+let pokeCardContent;
+let pokeName;
+
+let statsBtn;
+let evoBtn;
+let movesBtn;
+let aboutBtn;
 
 let colorCode = {
 		'grass': 'rgb(12, 183, 12)',
@@ -111,6 +118,7 @@ function	openPokeCard(i) {
 	i = checkNumber(i);
 	loadCardPokemonInformation(i);
 	cardContent = document.getElementById('cardContent');
+
 }
 
 function checkNumber(i) {
@@ -131,20 +139,31 @@ async function loadCardPokemonInformation(i) {
 		cardContent.innerHTML = cardHtml(i);
 		cardWrapper = document.getElementById('cardWrapper');
  	cardWrapper.classList.remove('displayNone');
-		renderPokeCardContent();
+		pokeName = currentCardPokemon['name'];
+		loadCardPokemonContentInformation();
+		renderCardContentAbout();
+
 }
 
 function cardHtml(i) {
 	return /*html*/ `
-	<div class="cardWrapper displayNone" id="cardWrapper" onclick="closeCardWrapper()">
+	<div class="cardWrapper displayNone" id="cardWrapper" onclick="closeCardWrapper()" disabled>
 		<button onclick="openPokeCard(${i - 1})"><</button>
-		<div class="cardContainer" style="background: ${colorCode[`${currentCardPokemon['types'][0]['type']['name']}`]}">
-			<div class="cardHeader" id="pokeCardContainer" >
-				<h2>${currentCardPokemon['name']}</h2>
-				<img class="cardImg" id="pokeImg" src=${currentCardPokemon['sprites']['other']['official-artwork']['front_default']} alt="">
+		<div class="cardBackgroundColor" style="background: ${colorCode[`${currentCardPokemon['types'][0]['type']['name']}`]}" onclick="blockCloseFunc()">
+			<div class="cardContainer" id="pokeCardContainer" onclick="event.stopPropagation()">
+				<div class="cardHeader"  >
+					<h2>${currentCardPokemon['name']}</h2>
+					<img class="cardImg" id="pokeImg" src=${currentCardPokemon['sprites']['other']['official-artwork']['front_default']} alt="">
+					<div class="headerCardContentContainer">
+				<h3 onclick="renderCardContentAbout()" id="aboutBtn">About</h3>
+				<h3 onclick="renderCardContentBase()" id="statsBtn">Base Stats</h3>
+				<h3 onclick="renderCardContentEvolution()" id="evoBtn">Evolution </h3>
+				<h3 onclick="renderCardContentMoves()" id="movesBtn">Moves</h3>
 			</div>
-			<div class="cardBody">
-				<div id="pokeCardContent"></div>
+				</div>
+				<div class="cardBody">
+					<div id="pokeCardContent"></div>
+				</div>
 			</div>
 		</div>
 		<button onclick="openPokeCard(${i + 1})">></button> 
@@ -152,36 +171,126 @@ function cardHtml(i) {
 `
 }
 
-function renderPokeCardContent() {
-	let pokeCardContent = document.getElementById('pokeCardContent');
-	pokeCardContent.innerHTML = pokeCardContentHeaderHtml();
-}
-
-function pokeCardContentHeaderHtml() {
-	return /*html*/ `
-		<div class="headerCardContentContainer">
-			<h3 onclick="renderCardContentAbout()">About</h3>
-			<h3 onclick="renderCardContentBase()">Base Stats</h3>
-			<h3 onclick="renderCardContentEvolution()">Evolution </h3>
-			<h3 onclick="renderCardContentMoves()">Moves</h3>
-		</div>
-	`;
-}
 
 function renderCardContentAbout() {
- alert('test')
-}
-function renderCardContentBase() {
-	alert('test')
-}
-function renderCardContentEvolution() {
-	alert('test')
-}
-function renderCardContentMoves() {
-	alert('test')
+	styleAboutH3();
+	pokeCardContent = document.getElementById('pokeCardContent');
+
+
+	pokeCardContent.innerHTML = /*html*/ `
+	<h4>type(s):</h4><p id="cardType"></p>
+	<h4>height:</h4><p>${currentCardPokemon['height']}</p>
+	<h4>weight:</h4><p>${currentCardPokemon['weight']}</p>
+	<h4>abilities:</h4><p id="cardAbility"></p>
+	`
+	showAllPokeCardTypes();
+	showAllPokeCardAbilities();
 }
 
+function renderCardContentBase() {
+	styleBaseH3();
+	pokeCardContent = document.getElementById('pokeCardContent');
+
+	pokeCardContent.innerHTML = /*html*/ `
+	<h4>type(s):</h4><p id="cardType"></p>
+	<h4>height:</h4><p>${currentCardPokemon['height']}</p>
+	<h4>weight:</h4><p>${currentCardPokemon['weight']}</p>
+	<h4>abilities:</h4><p id="cardAbility"></p>
+	`
+}
+
+function renderCardContentEvolution() {
+	styleEvolutionH3();
+	pokeCardContent = document.getElementById('pokeCardContent');
+
+	pokeCardContent.innerHTML = /*html*/ `
+	<h4>type(s):</h4><p id="cardType"></p>
+	<h4>height:</h4><p>${currentCardPokemon['height']}</p>
+	<h4>weight:</h4><p>${currentCardPokemon['weight']}</p>
+	<h4>abilities:</h4><p id="cardAbility"></p>
+	`
+}
+
+function renderCardContentMoves() {
+	styleMovesH3();
+	pokeCardContent = document.getElementById('pokeCardContent');
+	pokeCardContent.innerHTML = /*html*/ `
+	<h4>moves:</h4><p id="cardMoves"></p>
+	`;
+	fillCardMoves();
+}
+
+function fillCardMoves() {
+	let cardMoves = document.getElementById('cardMoves')
+	for (let i = 0; i < currentCardPokemon['moves'].length; i++) {
+	 cardMoves.innerHTML +=	/*html*/ `
+		<div class="move"> 
+		${currentCardPokemon['moves'][i]['move']['name']}</div>`
+	}
+}
+
+function showAllPokeCardTypes() {
+	let cardType = document.getElementById('cardType')
+	for (let j = 0; j < currentCardPokemon['types'].length; j++) {
+	 cardType.innerHTML +=	/*html*/ `
+		<div> 
+		${currentCardPokemon['types'][j]['type']['name']}</div>`
+	}
+}
+
+function showAllPokeCardAbilities() {
+	let cardAbility = document.getElementById('cardAbility')
+	for (let j = 0; j < currentCardPokemon['abilities'].length; j++) {
+	 cardAbility.innerHTML +=	/*html*/ `
+		<div> 
+		${currentCardPokemon['abilities'][j]['ability']['name']}</div>`
+	}
+}
+
+function definateBtn() {
+	aboutBtn = document.getElementById('aboutBtn');
+	statsBtn = document.getElementById('statsBtn');
+	evoBtn = document.getElementById('evoBtn');
+	movesBtn = document.getElementById('movesBtn');
+}
+
+function styleAboutH3() {
+	definateBtn()
+	aboutBtn.style.scale = '1.2';
+	statsBtn.style.scale = '1';
+	evoBtn.style.scale = '1';
+	movesBtn.style.scale = '1';
+}
+
+function styleBaseH3() {
+	statsBtn.style.scale = '1.2';
+	aboutBtn.style.scale = '1';
+	evoBtn.style.scale = '1';
+	movesBtn.style.scale = '1';
+}
+
+function styleEvolutionH3() {
+	evoBtn.style.scale = '1.2';
+	aboutBtn.style.scale = '1';
+	statsBtn.style.scale = '1';
+	movesBtn.style.scale = '1';
+	
+}
+
+function styleMovesH3() {
+	movesBtn.style.scale = '1.2';
+	aboutBtn.style.scale = '1';
+	evoBtn.style.scale = '1';
+	statsBtn.style.scale = '1';
+}
 
 function closeCardWrapper() {
 	cardWrapper.classList.add('displayNone');
+}
+
+async function loadCardPokemonContentInformation() {
+
+	let url = `https://pokeapi.co/api/v2/pokemon-species/${pokeName}`
+	let response = await fetch(url);
+	pokeCardContent = await response.json();
 }
