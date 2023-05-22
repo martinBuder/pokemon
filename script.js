@@ -39,8 +39,10 @@ let colorCode = {
 	
 	}
 
-
 let backgroundColor
+
+
+ // ! end chart
 
 async function loadAllPokemons() {
 	let url = `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`
@@ -187,17 +189,7 @@ function renderCardContentAbout() {
 	showAllPokeCardAbilities();
 }
 
-function renderCardContentBase() {
-	styleBaseH3();
-	pokeCardContent = document.getElementById('pokeCardContent');
 
-	pokeCardContent.innerHTML = /*html*/ `
-	<h4>type(s):</h4><p id="cardType"></p>
-	<h4>height:</h4><p>${currentCardPokemon['height']}</p>
-	<h4>weight:</h4><p>${currentCardPokemon['weight']}</p>
-	<h4>abilities:</h4><p id="cardAbility"></p>
-	`
-}
 
 function renderCardContentEvolution() {
 	styleEvolutionH3();
@@ -219,6 +211,69 @@ function renderCardContentMoves() {
 	`;
 	fillCardMoves();
 }
+
+function renderCardContentBase() {
+	styleBaseH3();
+	pokeCardContent = document.getElementById('pokeCardContent');
+
+	pokeCardContent.innerHTML = `<canvas id="pokeChart"></canvas>`;
+	createChart();
+}
+
+function createChart() {
+
+// *begin chart
+const ctx = document.getElementById('pokeChart');
+
+
+
+// *setup
+
+new Chart(ctx, {
+	type: 'radar',
+	data: {
+	labels: [
+			'HP',
+			'Attack',
+			'Defense',
+			'Special-Attack',
+			'Special-Defense',
+			'Speed',
+	],
+	datasets: [{
+			data: [currentCardPokemon['stats'][0]['base_stat'], currentCardPokemon['stats'][1]['base_stat'], currentCardPokemon['stats'][2]['base_stat'], currentCardPokemon['stats'][3]['base_stat'], currentCardPokemon['stats'][4]['base_stat'], currentCardPokemon['stats'][5]['base_stat'],],
+			fill: true,
+			backgroundColor: 'rgba(255, 255, 255, 0.3)',
+			borderColor: 'rgba(255, 255, 255, 0.7)',
+			pointBackgroundColor: 'rgb(255, 255, 255)',
+			pointBorderColor: '#fff',
+			pointHoverBackgroundColor: '#fff',
+			pointHoverBorderColor: 'rgba(0, 0, 0, 0.3)'
+	}]
+},
+options: {
+	scales: {
+					r: {
+									angleLines: {
+													display: false
+									},
+									suggestedMin: 0,
+									suggestedMax: 100,
+		
+					}
+	},
+	plugins: {
+		legend: {
+						display: false // Entferne die Anzeige der Dataset-Labels
+		}
+}
+}
+});
+
+
+};
+
+
 
 function fillCardMoves() {
 	let cardMoves = document.getElementById('cardMoves')
