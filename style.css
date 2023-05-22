@@ -186,6 +186,7 @@ button:hover {
 	background: repeating-linear-gradient(45deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.35) 18%, rgba(255,255,255,0.1) 34%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0.0984768907563025) 68%, rgba(255,255,255,0.51657212885154064) 93%,  rgba(255,255,255,0.45) 100%, transparent);
 	color: #414141;
 	z-index: 10;
+	cursor: auto;
 }
 
 .cardHeader {

@@ -1,9 +1,8 @@
-
 async function loadAllPokemons() {
 	let url = `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`
 	let response = await fetch(url);
 	currentAllPokemons = await response.json();
- loadPokemonInfos();
+ findPokemonInfos();
 }
 
 function loadNextPokemonInfos() {
@@ -31,18 +30,23 @@ function checkNumbers() {
 			}	
 	}
 	// 1010 pokemon on api - currentAllPokemons['results'].length is longer 1281
-	loadPokemonInfos();
+	findPokemonInfos();
 }
 
-async function loadPokemonInfos() {
+function findPokemonInfos() {
 	for (let i = startNumber; i < finishNumber; i++) {
-		currentPokemon = currentAllPokemons['results'][i]
+		currentPokemon = currentAllPokemons['results'][i];
+		loadPokemonInfos(i);
+	}
+}
+
+	async function loadPokemonInfos(i) {
 		let url = `https:pokeapi.co/api/v2/pokemon/${i + 1}`
 		let response = await fetch(url);
 		currentPokemon = await response.json();
 		renderPokemonInfo(i);
 	}
-}
+
 
 function renderPokemonInfo(i) {
 	content = document.getElementById('content')
@@ -125,8 +129,6 @@ function cardHtml(i) {
 function renderCardContentAbout() {
 	styleAboutH3();
 	pokeCardContent = document.getElementById('pokeCardContent');
-
-
 	pokeCardContent.innerHTML = /*html*/ `
 	<h4>type(s):</h4><p id="cardType"></p>
 	<h4>height:</h4><p>${currentCardPokemon['height']}</p>
@@ -138,11 +140,9 @@ function renderCardContentAbout() {
 }
 
 
-
 function renderCardContentEvolution() {
 	styleEvolutionH3();
 	pokeCardContent = document.getElementById('pokeCardContent');
-
 	pokeCardContent.innerHTML = /*html*/ `
 	<h4>type(s):</h4><p id="cardType"></p>
 	<h4>height:</h4><p>${currentCardPokemon['height']}</p>
@@ -214,6 +214,19 @@ function styleMovesH3() {
 
 function closeCardWrapper() {
 	cardWrapper.classList.add('displayNone');
+}
+
+function searchPokemon() {
+	
+	search = document.getElementById('search').value;
+	search = search.toLowerCase();
+	content.innerHTML = ``;
+	for (let i = 0; i < 1010; i++) {
+		let name = currentAllPokemons['results'][i]['name'];
+		if (name.includes(search)) {
+			loadPokemonInfos(i);
+		}
+	}
 }
 
 

@@ -1,7 +1,7 @@
 let currentAllPokemons;
 let currentPokemon;
 let currentCardPokemon;
-let searchPokemon
+let search;
 let startNumber = 0;
 let finishNumber = 32;
 
@@ -10,6 +10,7 @@ let cardContent;
 let cardWrapper;
 let pokeCardContent;
 let pokeName;
+
 
 let statsBtn;
 let evoBtn;

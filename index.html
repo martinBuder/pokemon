@@ -10,6 +10,7 @@
 	<!-- *let variables -->
 <script src="var.js"></script>
 
+
 	<!-- *chart -->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -23,7 +24,7 @@
 	<title>mbPokedex</title>
 </head>
 <body onload="loadAllPokemons()">
-	<header><img src="img/pokeball.png" alt="" class="logo"><input type="text" id="search" placeholder="search a pokemon"></header>
+	<header><img src="img/pokeball.png" alt="" class="logo"><input type="text" id="search" placeholder="search a pokemon" onkeyup="searchPokemon()"></header>
 	<div id="cardContent"></div>
 	<h1>Pokedex</h1>
 	<div class="pokeWrapper" id="content">
