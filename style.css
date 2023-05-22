@@ -231,12 +231,12 @@ button:hover {
 
 .headerCardContentContainer {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	color: #414141;
 	width: 100%;
 	align-items: center;
 	border-bottom: 1px solid #414141;
-	padding: 0 20px 10px 20px;
+	padding: 0 0 10px 0;
 }
 
 .cardContainer h3 {
@@ -270,7 +270,7 @@ button:hover {
 p#cardMoves {
 	width: 100%;
 	display: flex;
-	gap: 8px;
+	gap: 16px 8px;
 	flex-wrap: wrap;
 	font-size: 1rem;
 	padding: 0 10px 20px 0;
@@ -288,7 +288,6 @@ p#cardMoves {
 	height: 5px;
 	background-color: rgba(0, 0, 0, 0.1);
 	border-radius: 50px;
-
 }
 
 ::-webkit-scrollbar-thumb {
@@ -302,7 +301,8 @@ p#cardMoves {
 }
 
 canvas {
-	
+	width: 300px;
+	transform: translate(-7%, -12%);
 }
 
 

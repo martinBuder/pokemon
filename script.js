@@ -1,48 +1,3 @@
-let currentAllPokemons;
-let currentPokemon;
-let currentCardPokemon;
-let searchPokemon
-let startNumber = 0;
-let finishNumber = 32;
-
-let content;
-let cardContent;
-let cardWrapper;
-let pokeCardContent;
-let pokeName;
-
-let statsBtn;
-let evoBtn;
-let movesBtn;
-let aboutBtn;
-
-let colorCode = {
-		'grass': 'rgb(12, 183, 12)',
-		'fire': 'rgb(126, 20, 20)',
-		'water': 'rgb(36, 92, 189)',
-		'bug': 'rgb(168, 184, 32)',
-		'normal': 'rgb(168, 168, 120)',
-		'poison': 'rgb(160, 64, 160)',
-		'electric': 'rgb(248, 208, 48)',
-		'fairy': 'rgb(214, 133, 173)',
-		'fighting': 'rgb(192, 48, 40)',
-		'ground': 'rgb(224, 192, 104)',
-		'psychic': 'rgb(248, 88, 136)',
-		'ice': 'rgb(152, 216, 216)',
-		'rock': 'rgb(184, 160, 56)',
-		'dragon': 'rgb(112, 56, 248)',
-		'dark': 'rgb(112, 88, 72)',
-		'ghost': 'rgb(112, 88, 152)',
-		'steel': 'rgb(184, 184, 208)',
-		'flying': 'rgb(168, 144, 240)'
-
-	
-	}
-
-let backgroundColor
-
-
- // ! end chart
 
 async function loadAllPokemons() {
 	let url = `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`
@@ -115,7 +70,6 @@ function fillPokeTypeContent(i) {
 	}
 }
 
-
 function	openPokeCard(i) {
 	i = checkNumber(i);
 	loadCardPokemonInformation(i);
@@ -130,7 +84,6 @@ function checkNumber(i) {
 	if(i > 1009){
 		i = 0
 	}
-
 	return i
 }
 
@@ -141,10 +94,7 @@ async function loadCardPokemonInformation(i) {
 		cardContent.innerHTML = cardHtml(i);
 		cardWrapper = document.getElementById('cardWrapper');
  	cardWrapper.classList.remove('displayNone');
-		pokeName = currentCardPokemon['name'];
-		loadCardPokemonContentInformation();
 		renderCardContentAbout();
-
 }
 
 function cardHtml(i) {
@@ -157,11 +107,10 @@ function cardHtml(i) {
 					<h2>${currentCardPokemon['name']}</h2>
 					<img class="cardImg" id="pokeImg" src=${currentCardPokemon['sprites']['other']['official-artwork']['front_default']} alt="">
 					<div class="headerCardContentContainer">
-				<h3 onclick="renderCardContentAbout()" id="aboutBtn">About</h3>
-				<h3 onclick="renderCardContentBase()" id="statsBtn">Base Stats</h3>
-				<h3 onclick="renderCardContentEvolution()" id="evoBtn">Evolution </h3>
-				<h3 onclick="renderCardContentMoves()" id="movesBtn">Moves</h3>
-			</div>
+						<h3 onclick="renderCardContentAbout()" id="aboutBtn">About</h3>
+						<h3 onclick="renderCardContentBase()" id="statsBtn">Base Stats</h3>
+						<h3 onclick="renderCardContentMoves()" id="movesBtn">Moves</h3>
+					</div>
 				</div>
 				<div class="cardBody">
 					<div id="pokeCardContent"></div>
@@ -172,7 +121,6 @@ function cardHtml(i) {
 	</div>
 `
 }
-
 
 function renderCardContentAbout() {
 	styleAboutH3();
@@ -212,69 +160,6 @@ function renderCardContentMoves() {
 	fillCardMoves();
 }
 
-function renderCardContentBase() {
-	styleBaseH3();
-	pokeCardContent = document.getElementById('pokeCardContent');
-
-	pokeCardContent.innerHTML = `<canvas id="pokeChart"></canvas>`;
-	createChart();
-}
-
-function createChart() {
-
-// *begin chart
-const ctx = document.getElementById('pokeChart');
-
-
-
-// *setup
-
-new Chart(ctx, {
-	type: 'radar',
-	data: {
-	labels: [
-			'HP',
-			'Attack',
-			'Defense',
-			'Special-Attack',
-			'Special-Defense',
-			'Speed',
-	],
-	datasets: [{
-			data: [currentCardPokemon['stats'][0]['base_stat'], currentCardPokemon['stats'][1]['base_stat'], currentCardPokemon['stats'][2]['base_stat'], currentCardPokemon['stats'][3]['base_stat'], currentCardPokemon['stats'][4]['base_stat'], currentCardPokemon['stats'][5]['base_stat'],],
-			fill: true,
-			backgroundColor: 'rgba(255, 255, 255, 0.3)',
-			borderColor: 'rgba(255, 255, 255, 0.7)',
-			pointBackgroundColor: 'rgb(255, 255, 255)',
-			pointBorderColor: '#fff',
-			pointHoverBackgroundColor: '#fff',
-			pointHoverBorderColor: 'rgba(0, 0, 0, 0.3)'
-	}]
-},
-options: {
-	scales: {
-					r: {
-									angleLines: {
-													display: false
-									},
-									suggestedMin: 0,
-									suggestedMax: 100,
-		
-					}
-	},
-	plugins: {
-		legend: {
-						display: false // Entferne die Anzeige der Dataset-Labels
-		}
-}
-}
-});
-
-
-};
-
-
-
 function fillCardMoves() {
 	let cardMoves = document.getElementById('cardMoves')
 	for (let i = 0; i < currentCardPokemon['moves'].length; i++) {
@@ -305,7 +190,6 @@ function showAllPokeCardAbilities() {
 function definateBtn() {
 	aboutBtn = document.getElementById('aboutBtn');
 	statsBtn = document.getElementById('statsBtn');
-	evoBtn = document.getElementById('evoBtn');
 	movesBtn = document.getElementById('movesBtn');
 }
 
@@ -313,29 +197,18 @@ function styleAboutH3() {
 	definateBtn()
 	aboutBtn.style.scale = '1.2';
 	statsBtn.style.scale = '1';
-	evoBtn.style.scale = '1';
 	movesBtn.style.scale = '1';
 }
 
 function styleBaseH3() {
 	statsBtn.style.scale = '1.2';
 	aboutBtn.style.scale = '1';
-	evoBtn.style.scale = '1';
 	movesBtn.style.scale = '1';
-}
-
-function styleEvolutionH3() {
-	evoBtn.style.scale = '1.2';
-	aboutBtn.style.scale = '1';
-	statsBtn.style.scale = '1';
-	movesBtn.style.scale = '1';
-	
 }
 
 function styleMovesH3() {
 	movesBtn.style.scale = '1.2';
 	aboutBtn.style.scale = '1';
-	evoBtn.style.scale = '1';
 	statsBtn.style.scale = '1';
 }
 
@@ -343,9 +216,4 @@ function closeCardWrapper() {
 	cardWrapper.classList.add('displayNone');
 }
 
-async function loadCardPokemonContentInformation() {
 
-	let url = `https://pokeapi.co/api/v2/pokemon-species/${pokeName}`
-	let response = await fetch(url);
-	pokeCardContent = await response.json();
-}
