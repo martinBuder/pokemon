@@ -17,6 +17,8 @@ let evoBtn;
 let movesBtn;
 let aboutBtn;
 
+let timeOut;
+
 let colorCode = {
 		'grass': 'rgb(12, 183, 12)',
 		'fire': 'rgb(126, 20, 20)',

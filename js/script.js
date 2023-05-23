@@ -167,9 +167,14 @@ function closeCardWrapper() {
 	cardWrapper.classList.add('displayNone');
 }
 
-async function searchPokemon() {
+function searchPokemon() {
+	clearTimeout(timeOut);
+	timeOut = setTimeout(searchFunction, 800);
+}
+
+function searchFunction() {
 	search = document.getElementById('search').value;
-	if (search == 0){
+	if (search === ''){
 		renderBeginn();
 	}
 	else{
@@ -178,7 +183,7 @@ async function searchPokemon() {
 		let counter = 0
 		for (let i = 0; i < 1010; i++) {
 			let name = currentAllPokemons['results'][i]['name'];
-			if (await name.includes(search)) {
+			if (name.includes(search)) {
 				loadPokemonInfos(i);
 				counter++
 			}
@@ -188,5 +193,3 @@ async function searchPokemon() {
 		}
 	}
 }
-
-
