@@ -1,37 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="img/pokeball.png" type="image/x-icon">
-	<link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="img/pokeball.png" type="image/x-icon" />
+    <link rel="stylesheet" href="style.css" />
 
-	<!-- *let variables -->
-<script src="var.js"></script>
+    <!-- *let variables -->
+    <script src="js/globalVariables.js"></script>
 
+    <!-- *chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/script.js"></script>
+				<script src="js/returnHtmls.js"></script>
 
-	<!-- *chart -->
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- *render Chart -->
+    <script src="js/renderChart.js"></script>
 
-	<!-- *javascript -->
-	<script src="script.js"></script>
-	
-<!-- *render Chart -->
-<script src="renderChart.js"></script>
-
-
-	<title>mbPokedex</title>
-</head>
-<body onload="loadAllPokemons()">
-	<header><img src="img/pokeball.png" alt="" class="logo"><input type="text" id="search" placeholder="search a pokemon" onkeyup="searchPokemon()"></header>
-	<div id="cardContent"></div>
-	<h1>Pokedex</h1>
-	<div class="pokeWrapper" id="content">
-	</div>
-	<div id="nextButtonContainer">
-		<button onclick="loadLastPokemonInfos()" id="lastButton">show before</button>
-		<button onclick="loadNextPokemonInfos()" id="nextButton">show next</button>
-	</div>
-</body>
+    <title>mbPokedex</title>
+  </head>
+  <body onload="loadAllPokemons()">
+    <header>
+      <img
+        src="img/pokeball.png"
+        alt=""
+        class="logo"
+        onclick="renderBeginn()" /><input
+        type="text"
+        id="search"
+        placeholder="search a pokemon"
+        onkeyup="searchPokemon()" />
+    </header>
+    <main>
+      <div id="cardContent"></div>
+      <h1>Pokedex</h1>
+      <div class="pokeWrapper" id="content"></div>
+      <div id="nextButtonContainer">
+        <button onclick="loadLastPokemonInfos()" id="lastButton">
+          show before
+        </button>
+        <button onclick="loadNextPokemonInfos()" id="nextButton">
+          show next
+        </button>
+      </div>
+    </main>
+    <footer>
+      <p>created by Martin Buder</p>
+      <p>
+        used: API =
+        <a href="https://pokeapi.co/" target="_blank">https://pokeapi.co/</a>
+      </p>
+      <p>
+        license other images by
+        <a href="https://www.flaticon.com/" target="_blank"
+          >flaticon premium account
+        </a>
+      </p>
+    </footer>
+  </body>
 </html>
