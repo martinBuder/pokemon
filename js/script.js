@@ -169,7 +169,16 @@ function closeCardWrapper() {
 
 function searchPokemon() {
 	clearTimeout(timeOut);
-	timeOut = setTimeout(searchFunction, 800);
+	timeOut = setTimeout(closeSearchField, 800);
+}
+
+function closeSearchField() {
+	document.getElementById('search').disabled = true;
+	searchFunction()
+}
+
+function openSearchField() {
+	document.getElementById('search').disabled = false;
 }
 
 function searchFunction() {
@@ -192,4 +201,5 @@ function searchFunction() {
 			content.innerHTML = returnDontFoundHtml();
 		}
 	}
+	openSearchField()
 }
